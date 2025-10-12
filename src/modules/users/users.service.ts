@@ -10,8 +10,10 @@ export class UsersService {
     @InjectRepository(User)
     private usersRepo: Repository<User>,
   ) {}
-  findAll() {
-    return this.usersRepo.find();
+  async findAll(): Promise<User[]> {
+    return this.usersRepo.find({
+      relations: ['places'],
+    });
   }
   createUser(neewUser: CreateUserDTO) {
     const userCreate = this.usersRepo.create(neewUser);

@@ -1,6 +1,8 @@
 import * as dotenv from 'dotenv';
 import { User } from './src/entities/user.entity';
 import { DataSource } from 'typeorm';
+import { Role } from './src/entities/role.entity';
+import { Place } from './src/entities/places.entity';
 dotenv.config();
 
 export default new DataSource({
@@ -10,7 +12,7 @@ export default new DataSource({
   username: process.env.BD_USERNAME,
   password: process.env.BD_PASSWORD,
   database: process.env.BD_NAME,
-  entities: [User],
+  entities: [User, Role, Place],
   migrations: ['./src/migrations/*.ts'],
   synchronize: true,
 });
