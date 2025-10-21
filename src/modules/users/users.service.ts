@@ -55,4 +55,15 @@ export class UsersService {
   async remove(id: number): Promise<void> {
     await this.usersRepo.delete(id);
   }
+
+  async findByEmail(email: string): Promise<User | null> {
+    return this.usersRepo.findOne({
+      where: { email },
+      relations: ['role', 'places'],
+    });
+  }
+
+  async findRoleByName(name: string): Promise<Role | null> {
+    return this.rolesRepo.findOne({ where: { name } });
+  }
 }

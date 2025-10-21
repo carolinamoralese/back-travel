@@ -11,13 +11,11 @@ export class PlacesService {
     private readonly placeRepository: Repository<Place>,
   ) {}
 
-  // Crear un nuevo lugar
   async create(placeData: IPlace): Promise<Place> {
     const place = this.placeRepository.create(placeData);
     return this.placeRepository.save(place);
   }
 
-  // Listar todos los lugares
   async findAll(): Promise<Place[]> {
     return this.placeRepository.find({ relations: ['user'] });
   }
@@ -28,10 +26,9 @@ export class PlacesService {
 
   async update(id: number, data: Partial<Place>): Promise<Place | null> {
     await this.placeRepository.update(id, data);
-    return this.findOne(id); // esta línea devuelve Place | null
+    return this.findOne(id);
   }
 
-  // Eliminar un lugar
   async remove(id: number): Promise<void> {
     await this.placeRepository.delete(id);
   }

@@ -11,18 +11,15 @@ export class RolesService {
     private readonly roleRepository: Repository<Role>,
   ) {}
 
-  // Crear un nuevo rol
   async create(roleData: IRole): Promise<Role> {
     const role = this.roleRepository.create(roleData);
     return this.roleRepository.save(role);
   }
 
-  // Listar todos los roles
   async findAll(): Promise<Role[]> {
     return this.roleRepository.find();
   }
 
-  // Buscar un rol por id
   async findOne(id: number): Promise<Role | null> {
     return this.roleRepository.findOneBy({ id });
   }
@@ -32,7 +29,6 @@ export class RolesService {
     return this.findOne(id);
   }
 
-  // Eliminar un rol
   async remove(id: number): Promise<void> {
     await this.roleRepository.delete(id);
   }
