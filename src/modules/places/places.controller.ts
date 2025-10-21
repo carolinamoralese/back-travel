@@ -21,6 +21,7 @@ import {
   ApiParam,
   ApiBody,
 } from '@nestjs/swagger';
+import { CreatePlaceDto } from 'src/dto/create-place.dto';
 
 @ApiTags('places')
 @ApiBearerAuth()
@@ -31,22 +32,18 @@ export class PlacesController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles('admin')
   @Post()
-  @ApiOperation({ summary: 'Crear un nuevo lugar (solo admin)' })
-  @ApiResponse({ status: 201, description: 'Lugar creado exitosamente' })
-  @ApiResponse({ status: 403, description: 'Acceso denegado' })
+  @ApiOperation({ summary: 'Agregar un lugar a un usuario existente' })
+  @ApiResponse({ status: 201, description: 'Lugar agregado correctamente' })
   @ApiBody({
-    description: 'Datos del lugar a crear',
-    type: Object,
+    description: 'Datos para crear un lugar asociado a un usuario',
     examples: {
       ejemplo1: {
-        value: {
-          name: 'Paris',
-        },
+        value: { name: 'Cartagena', userId: 2 },
       },
     },
   })
-  create(@Body() placeData: IPlace) {
-    return this.placesService.create(placeData);
+  create(@Body() placeData: CreatePlaceDto) {
+    return this.placesService.createPlace(placeData);
   }
 
   @Get()
