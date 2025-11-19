@@ -7,11 +7,7 @@ dotenv.config();
 
 export default new DataSource({
   type: 'mysql',
-  host: process.env.BD_HOST,
-  port: Number(process.env.BD_PORT),
-  username: process.env.BD_USERNAME,
-  password: process.env.BD_PASSWORD,
-  database: process.env.BD_NAME,
+  url: process.env.DATABASE_URL,
   entities: [User, Role, Place],
   migrations: ['./src/migrations/*.ts'],
   synchronize: true,
