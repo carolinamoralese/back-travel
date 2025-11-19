@@ -22,7 +22,7 @@ import { AuthModule } from './modules/auth/auth.module';
         password: config.get<string>('BD_PASSWORD'),
         database: config.get<string>('BD_NAME'),
         autoLoadEntities: true,
-        synchronize: false,
+        synchronize: true,
       }),
     }),
     UsersModule,
