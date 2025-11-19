@@ -1,98 +1,112 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Travels API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Descripción del proyecto y objetivo
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Travels API es una plataforma backend desarrollada para agencias de viajes que gestionan múltiples usuarios y sus destinos de venta. Cada usuario tiene asignadas ciudades o lugares turísticos específicos que puede administrar, mientras que los administradores (rol **admin**) tienen control completo sobre todos los usuarios, roles y lugares.
 
-## Description
+El objetivo de esta API es centralizar la gestión de usuarios, roles y lugares, asegurando que cada recurso esté correctamente asignado, protegido y controlado, optimizando la administración de destinos turísticos y la operación de la agencia.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+**Esta solución permite:**
 
-## Project setup
+- Administrar usuarios y sus roles con permisos claros.
+- Asignar lugares específicos a cada usuario para la venta o gestión de servicios turísticos.
+- Garantizar la seguridad de la plataforma mediante autenticación JWT y control de acceso basado en roles.
+- Facilitar la integración con aplicaciones frontend o sistemas internos de la agencia.
+
+---
+
+## Roles de cada integrante
+
+- **Carolina Morales Echeverry:** Desarrollo backend, implementación de servicios, integración de endpoints, pruebas unitarias, configuración de la base de datos, control de autenticación JWT, documentación y soporte en pruebas de Postman.
+
+---
+
+## Instrucciones para ejecutar la API localmente
+
+1. Clonar el repositorio:
 
 ```bash
-$ npm install
+git clone <URL_DEL_REPOSITORIO>
+cd travels
 ```
 
-## Compile and run the project
+## Variables de entorno requeridas
 
-```bash
-# development
-$ npm run start
+El archivo .env debe contener lo siguiente:
+### Puerto donde se ejecuta la aplicacion 
+PORT=
 
-# watch mode
-$ npm run start:dev
+### Nombre de la aplicacion
+APP_NAME=
 
-# production mode
-$ npm run start:prod
-```
+### Configuracion de la base de datos MySQL 
+BD_HOST=
+BD_PORT=
+BD_USERNAME=
+BD_PASSWORD=
+BD_NAME=
 
-## Run tests
+### Configuracion del sistema de autenticacion JWT 
+JWT_SECRET_KEY=
 
-```bash
-# unit tests
-$ npm run test
 
-# e2e tests
-$ npm run test:e2e
+## Ejemplos de endpoints principales
+### Usuarios (users)
 
-# test coverage
-$ npm run test:cov
-```
+| Método | Ruta           | Descripción                               | Roles permitidos |
+| ------ | -------------- | ----------------------------------------- | ---------------- |
+| GET    | /users         | Listar todos los usuarios                 | Admin            |
+| POST   | /users         | Registrar un nuevo usuario                | Admin            |
+| PUT    | /users/{id}    | Actualizar un usuario existente           | Admin            |
+| DELETE | /users/{id}    | Eliminar un usuario                       | Admin            |
+| GET    | /users/profile | Obtener el perfil del usuario autenticado | User/Admin       |
 
-## Deployment
+## Lugares (places)
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+| Método | Ruta         | Descripción                   | Roles permitidos |
+| ------ | ------------ | ----------------------------- | ---------------- |
+| POST   | /places      | Agregar un lugar a un usuario | Admin/User       |
+| GET    | /places      | Obtener todos los lugares     | Admin/User       |
+| GET    | /places/{id} | Obtener un lugar por ID       | Admin            |
+| PUT    | /places/{id} | Actualizar un lugar           | Admin            |
+| DELETE | /places/{id} | Eliminar un lugar             | Admin            |
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+## Roles (roles)
 
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
+| Método | Ruta        | Descripción                 | Roles permitidos |
+| ------ | ----------- | --------------------------- | ---------------- |
+| POST   | /roles      | Crear un nuevo rol          | Admin            |
+| GET    | /roles      | Listar todos los roles      | Admin            |
+| GET    | /roles/{id} | Obtener un rol por ID       | Admin            |
+| PUT    | /roles/{id} | Actualizar un rol existente | Admin            |
+| DELETE | /roles/{id} | Eliminar un rol             | Admin            |
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+## Autenticación (auth)
 
-## Resources
+| Método | Ruta           | Descripción                          |
+| ------ | -------------- | ------------------------------------ |
+| POST   | /auth/login    | Inicia sesión con email y contraseña |
+| POST   | /auth/register | Registro de nuevo usuario            |
 
-Check out a few resources that may come in handy when working with NestJS:
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+## Pruebas Unitarias y Evidencias
+### Pruebas implementadas
 
-## Support
+- Usuarios: Validación de creación, actualización, eliminación y consulta de usuarios.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+- Roles: Creación, actualización, eliminación y consulta de roles.
 
-## Stay in touch
+- Lugares: Asociar lugares a usuarios, obtener lugares por ID y listar todos los lugares.
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+- Auth: Validación de usuario, login con JWT, registro con roles.
 
-## License
+## Resultado de la ejecución
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+Cobertura de código general: ~80%
+
+
+## Evidencias
+<img width="1440" height="775" alt="image" src="https://github.com/user-attachments/assets/f602bd15-9acf-4cb3-85e9-62e9ee433105" />
+
+
+
